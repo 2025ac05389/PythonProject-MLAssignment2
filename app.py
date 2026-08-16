@@ -87,14 +87,14 @@ try:
     preprocessor, models = load_artifacts()
 except Exception as e:
     st.error(f"Error loading model artifacts: {e}")
-    st.info("Run `python model/train_models.py` first to generate required artifacts.")
+    st.info("Run `python model/train_model.py` first to generate required artifacts.")
     st.stop()
 
 # Ensure required models exist
 missing_models = [name for name in MODEL_FILES if name not in models]
 if missing_models:
     st.error("Missing model artifacts: " + ", ".join(missing_models))
-    st.info("Run `python model/train_models.py` and refresh application.")
+    st.info("Run `python model/train_model.py` and refresh application.")
     st.stop()
 
 # ==============================================================================
