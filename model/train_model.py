@@ -290,6 +290,7 @@ This repository features a complete machine learning workflow for binary classif
 2. **Multi-Model Training Pipeline:** Trains and evaluates **5 standard machine learning classifiers**.
 3. **Interactive Streamlit Dashboard:** Provides an interactive web interface for real-time model evaluation, threshold tuning, batch inference, and risk profiling.
 4. **GitHub Repository:** https://github.com/2025ac05389/PythonProject-MLAssignment2
+5. **StreamlitAPP:** https://pythonproject-mlassignment2-tauheed.streamlit.app
 ---
 
 ## 📊 Dataset & Features
