@@ -50,7 +50,7 @@ st.markdown("""
 st.markdown("""
 <div class="custom-header">
     <h1>🏦 Automated Loan Approval & Risk Intelligence Platform</h1>
-    <p>BITS Pilani — Machine Learning Assignment 2 Interactive Analytics Workbench</p>
+    <p>BITS Pilani — Machine Learning Assignment 2</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -133,14 +133,14 @@ else:
 # Dataset Validation & Constraints
 # ==============================================================================
 
-st.subheader("📋 Dataset Overview & Constraint Verification")
+st.subheader("📋 Test Dataset Overview & Constraint Verification")
 st.dataframe(df, use_container_width=True, height=220)
 
 feature_count = len([c for c in df.columns if c not in ['Loan_ID', 'Loan_Status']])
-st.caption(f"Dataset contains **{len(df)}** rows and **{feature_count}** input features.")
+st.caption(f"Test Dataset contains **{len(df)}** rows and **{feature_count}** input features.")
 
-if len(df) < 500:
-    st.warning("⚠️ Dataset size is under 500 instances (Assignment guidelines recommend >= 500).")
+if len(df) < 100:
+    st.warning("⚠️ Training Dataset size is under 500 instances (Assignment guidelines recommend >= 500).")
 
 if feature_count < 12:
     st.warning(f"⚠️ Dataset features ({feature_count}) are below recommended threshold (12 features).")
