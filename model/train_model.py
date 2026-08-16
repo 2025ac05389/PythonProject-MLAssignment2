@@ -30,8 +30,8 @@ from sklearn.metrics import (
 # ==============================================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "model")
-DATASET_PATH = os.path.join(BASE_DIR, "train.csv")
+MODEL_DIR = os.path.join(BASE_DIR, "")
+DATASET_PATH = os.path.join(BASE_DIR, "../train.csv")
 
 os.makedirs(MODEL_DIR, exist_ok=True)
 
@@ -136,7 +136,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 test_df = X_test.copy()
 test_df['Loan_Status'] = y_test.map({1: 'Y', 0: 'N'})
-test_df.to_csv(os.path.join(BASE_DIR, 'test_data.csv'), index=False)
+test_df.to_csv(os.path.join(BASE_DIR, '../test_data.csv'), index=False)
 
 print("✓ Exported test_data.csv successfully!")
 
