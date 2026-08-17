@@ -250,51 +250,48 @@ print(f"{overall_winner} "
 # 13. Generate concise observations for README / report
 # ==============================================================================
 
-print("\n=== MODEL OBSERVATIONS ===")
+print("\n=== GENERATING DYNAMIC README.MD ===")
 
-obs_list = []
-
+# Build comparison table rows
+table_rows = []
 for _, row in results_df.iterrows():
+    table_rows.append(
+        f"| **{row['ML Model Name']}** | {row['Accuracy']:.4f} | {row['AUC']:.4f} | "
+        f"{row['Precision']:.4f} | {row['Recall']:.4f} | {row['F1']:.4f} | {row['MCC']:.4f} |"
+    )
+metrics_table_str = "\n".join(table_rows)
 
+# Build observation table rows
+obs_rows = []
+for _, row in results_df.iterrows():
     model_name = row['ML Model Name']
-
     if model_name == overall_winner:
-        observation = (
-            "Strongest overall performance because it achieved the highest "
-            "average score across the six required evaluation metrics."
-        )
+        obs = "Strongest overall performance because it achieved the highest average score across the six required evaluation metrics."
     else:
-        observation = (
-            f"Accuracy={row['Accuracy']:.4f}, AUC={row['AUC']:.4f}, "
-            f"Precision={row['Precision']:.4f}, Recall={row['Recall']:.4f}, "
-            f"F1={row['F1']:.4f}, MCC={row['MCC']:.4f}."
-        )
+        obs = f"Accuracy={row['Accuracy']:.4f}, AUC={row['AUC']:.4f}, Precision={row['Precision']:.4f}, Recall={row['Recall']:.4f}, F1={row['F1']:.4f}, MCC={row['MCC']:.4f}."
+    obs_rows.append(f"| **{model_name}** | {obs} |")
 
-    print(f"{model_name}: {observation}")
-    obs_list.append(f"* **{model_name}:** {observation}")
+# Add overall winner row to observations table
+obs_rows.append(
+    f"| **Overall Winner for your dataset?** | **{overall_winner}** (achieved the highest average across all six evaluation metrics = {winner_row['Overall Score']:.4f}). |"
+)
+obs_table_str = "\n".join(obs_rows)
 
-# Format observations for Markdown insertion
-model_observations_text = "\n".join(obs_list)
-
-# Generate README.md content dynamically
 readme_content = f"""# 🏦 Automated Loan Approval & Risk Intelligence Platform
 
 An end-to-end Machine Learning web application and analytics workbench built for predicting loan application approvals and assessing financial risk. Developed as part of the **BITS Pilani — Machine Learning Assignment 2** curriculum.
 
 ---
 
-## 📌 Project Overview
+## 📌 Problem Statement
 
-This repository features a complete machine learning workflow for binary classification on loan approval data:
-1. **Data Preprocessing & Feature Engineering:** Handles missing values, scales numerical features, and encodes categorical attributes.
-2. **Multi-Model Training Pipeline:** Trains and evaluates **5 standard machine learning classifiers**.
-3. **Interactive Streamlit Dashboard:** Provides an interactive web interface for real-time model evaluation, threshold tuning, batch inference, and risk profiling.
-4. **GitHub Repository:** https://github.com/2025ac05389/PythonProject-MLAssignment2
-5. **StreamlitAPP:** https://pythonproject-mlassignment2-tauheed.streamlit.app
+Financial institutions evaluate loan applications based on applicant creditworthiness and financial profiles. The objective of this project is to build, evaluate, and compare multiple supervised machine learning classifiers to automate loan eligibility predictions while minimizing credit risk and maximizing predictive accuracy.
+
 ---
 
-## 📊 Dataset & Features
-* **Data Source:** https://www.kaggle.com/datasets/architsharma01/loan-approval-prediction-dataset
+## 📊 Dataset Description
+
+* **Data Source:** [Kaggle Loan Approval Prediction Dataset](https://www.kaggle.com/datasets/architsharma01/loan-approval-prediction-dataset)
 * **Primary Dataset:** `train.csv` ({len(df)} instances, {len(feature_columns)} features)
 * **Target Variable:** `Loan_Status` (`Y` = Approved / `1`, `N` = Rejected / `0`)
 * **Input Features:**
@@ -303,29 +300,28 @@ This repository features a complete machine learning workflow for binary classif
 
 ---
 
-## 🤖 Machine Learning Classifiers
+## 🔗 Repository & Application Links
 
-The training pipeline (`train_model.py`) trains and evaluates the following 5 models:
-1. **Logistic Regression**
-2. **Decision Tree Classifier**
-3. **k-Nearest Neighbors (kNN)**
-4. **Naive Bayes (GaussianNB)**
-5. **Random Forest Classifier (Ensemble)**
-
-### 📈 Evaluation Metrics
-Every model is benchmarked across **6 mandatory evaluation metrics**:
-* **Accuracy**
-* **Area Under the ROC Curve (AUC)**
-* **Precision**
-* **Recall**
-* **F1 Score**
-* **Matthews Correlation Coefficient (MCC)**
+* **GitHub Repository Link:** https://github.com/2025ac05389/PythonProject-MLAssignment2
+* **Live Streamlit App:** https://pythonproject-mlassignment2-tauheed.streamlit.app
 
 ---
 
-## 📝 Model Observations
+## 🤖 Models Used & Comparison Table
 
-{model_observations_text}
+The following 5 classification models were trained and benchmarked across all 6 mandatory evaluation metrics:
+
+| ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+{metrics_table_str}
+
+---
+
+## 📝 Observations on Model Performance
+
+| ML Model Name | Observation about model performance |
+| :--- | :--- |
+{obs_table_str}
 
 ---
 
